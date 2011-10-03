@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.SearchLazy}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+        <h:form styleClass="jsfcrud_list_form">
+           
+             <h:panelGrid>
+                    <!-- <h:outputLabel value="#{bundle.EditObraLabel_idObra}" for="lazyParams" /> --> 
+                    <h:inputText id="searchLazy" value="#{obraController.googleIt}" title="#{bundle.SearchLazy}" required="true" requiredMessage="#{bundle.EditObraRequiredMessage_idObra}"/>
+                    
+             </h:panelGrid>
+             <h:commandLink action="#{obraController.searchLazy}" value="#{bundle.LazySearch_feeling}"/> 
+                      
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewObraTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewObraLabel_idObra}"/>
+                    <h:outputText value="#{obraController.selected.idObra}" title="#{bundle.ViewObraTitle_idObra}"/>
+                    <h:outputText value="#{bundle.ViewObraLabel_dataPublicacao}"/>
+                    <h:outputText value="#{obraController.selected.dataPublicacao}" title="#{bundle.ViewObraTitle_dataPublicacao}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewObraLabel_isbn}"/>
+                    <h:outputText value="#{obraController.selected.isbn}" title="#{bundle.ViewObraTitle_isbn}"/>
+                    <h:outputText value="#{bundle.ViewObraLabel_autor}"/>
+                    <h:outputText value="#{obraController.selected.autor}" title="#{bundle.ViewObraTitle_autor}"/>
+                    <h:outputText value="#{bundle.ViewObraLabel_editora}"/>
+                    <h:outputText value="#{obraController.selected.editora}" title="#{bundle.ViewObraTitle_editora}"/>
+                    <h:outputText value="#{bundle.ViewObraLabel_tipoDeObra}"/>
+                    <h:outputText value="#{obraController.selected.tipoDeObra}" title="#{bundle.ViewObraTitle_tipoDeObra}"/>
+                    <h:outputText value="#{bundle.ViewObraLabel_areaRelacionada}"/>
+                    <h:outputText value="#{obraController.selected.areaRelacionada}" title="#{bundle.ViewObraTitle_areaRelacionada}"/>
+                    <h:outputText value="#{bundle.ViewObraLabel_conteudo}"/>
+                    <h:outputText value="#{obraController.selected.conteudo}" title="#{bundle.ViewObraTitle_conteudo}"/>
+                    <h:outputText value="#{bundle.ViewObraLabel_capa}"/>
+                    <h:outputText value="#{obraController.selected.capa}" title="#{bundle.ViewObraTitle_capa}"/>
+                    <h:outputText value="#{bundle.ViewObraLabel_numeropaginas}"/>
+                    <h:outputText value="#{obraController.selected.numeropaginas}" title="#{bundle.ViewObraTitle_numeropaginas}"/>
+                    <h:outputText value="#{bundle.ViewObraLabel_titulo}"/>
+                    <h:outputText value="#{obraController.selected.titulo}" title="#{bundle.ViewObraTitle_titulo}"/>
+                    <h:outputText value="#{bundle.ViewObraLabel_descricao}"/>
+                    <h:outputText value="#{obraController.selected.descricao}" title="#{bundle.ViewObraTitle_descricao}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{obraController.destroyAndView}" value="#{bundle.ViewObraDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewObraEditLink}"/>
+                <br />
+                <h:commandLink action="#{obraController.prepareCreate}" value="#{bundle.ViewObraCreateLink}" />
+                <br />
+                <h:commandLink action="#{obraController.prepareList}" value="#{bundle.ViewObraShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewObraIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

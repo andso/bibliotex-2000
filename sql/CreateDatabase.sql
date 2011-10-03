@@ -1,0 +1,19 @@
+#drop database bibliotex;
+
+#create database bibliotex;
+
+CREATE TABLE `obra` (
+  `ID_OBRA` int(11) NOT NULL AUTO_INCREMENT,
+  `DATA_PUBLICACAO` date NOT NULL,
+  `ISBN` int(11) DEFAULT NULL,
+  `AUTOR` varchar(255) DEFAULT NULL,
+  `EDITORA` varchar(255) DEFAULT NULL,
+  `TIPO_DE_OBRA` varchar(255) DEFAULT NULL,
+  `AREA_RELACIONADA` varchar(255) DEFAULT NULL,
+  `CONTEUDO` text,
+  `CAPA` varchar (255),
+  `NUMEROPAGINAS` int(11) DEFAULT NULL,
+  `TITULO` varchar(100) DEFAULT NULL,
+  `DESCRICAO` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`ID_OBRA`)
+) ;

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/C:/Users/jonatas.saraiva/Dropbox/crud-bibliotex/web/template.xhtml</file>
+        <file>file:/C:/Users/jonatas.saraiva/Dropbox/crud-bibliotex/src/java/edu/ritter/bibliotex/Conteudo.java</file>
+        <file>file:/C:/Users/jonatas.saraiva/Dropbox/crud-bibliotex/src/java/edu/ritter/bibliotex/bd/Obra.java</file>
+        <file>file:/C:/Users/jonatas.saraiva/Dropbox/crud-bibliotex/src/java/edu/ritter/bibliotex/bd/ObraController.java</file>
+        <file>file:/C:/Users/jonatas.saraiva/Dropbox/crud-bibliotex/src/java/edu/ritter/bibliotex/bd/util/JsfUtil.java</file>
+        <file>file:/C:/Users/jonatas.saraiva/Dropbox/crud-bibliotex/src/java/edu/ritter/bibliotex/bd/util/PaginationHelper.java</file>
+        <file>file:/C:/Users/jonatas.saraiva/Dropbox/crud-bibliotex/src/java/edu/ritter/bibliotex/exceptions/IllegalOrphanException.java</file>
+        <file>file:/C:/Users/jonatas.saraiva/Dropbox/crud-bibliotex/src/java/edu/ritter/bibliotex/exceptions/NonexistentEntityException.java</file>
+        <file>file:/C:/Users/jonatas.saraiva/Dropbox/crud-bibliotex/src/java/edu/ritter/bibliotex/tests/ContentTest.java</file>
+        <file>file:/C:/Users/jonatas.saraiva/Dropbox/crud-bibliotex/src/java/edu/ritter/bibliotex/util/JsfUtil.java</file>
+        <file>file:/C:/Users/jonatas.saraiva/Dropbox/crud-bibliotex/src/java/edu/ritter/bibliotex/util/PaginationHelper.java</file>
+    </open-files>
+</project-private>

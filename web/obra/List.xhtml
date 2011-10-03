@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListObraTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+        <h:form styleClass="jsfcrud_list_form">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:outputText escape="false" value="#{bundle.ListObraEmpty}" rendered="#{obraController.items.rowCount == 0}"/>
+            <h:panelGroup rendered="#{obraController.items.rowCount > 0}">
+                <h:outputText value="#{obraController.pagination.pageFirstItem + 1}..#{obraController.pagination.pageLastItem + 1}/#{obraController.pagination.itemsCount}"/>&nbsp;
+                <h:commandLink action="#{obraController.previous}" value="#{bundle.Previous} #{obraController.pagination.pageSize}" rendered="#{obraController.pagination.hasPreviousPage}"/>&nbsp;
+                <h:commandLink action="#{obraController.next}" value="#{bundle.Next} #{obraController.pagination.pageSize}" rendered="#{obraController.pagination.hasNextPage}"/>&nbsp;
+                <h:dataTable value="#{obraController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListObraTitle_idObra}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idObra}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListObraTitle_dataPublicacao}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.dataPublicacao}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListObraTitle_isbn}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.isbn}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListObraTitle_autor}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.autor}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListObraTitle_editora}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.editora}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListObraTitle_tipoDeObra}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.tipoDeObra}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListObraTitle_areaRelacionada}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.areaRelacionada}"/>
+                    </h:column>
+                    
+                    <!--
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListObraTitle_conteudo}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.conteudo}"/>
+                    </h:column>
+                    
+                    -->
+                    
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListObraTitle_capa}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.capa}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListObraTitle_numeropaginas}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.numeropaginas}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListObraTitle_titulo}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.titulo}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListObraTitle_descricao}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.descricao}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        <h:commandLink action="#{obraController.prepareView}" value="#{bundle.ListObraViewLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{obraController.prepareEdit}" value="#{bundle.ListObraEditLink}"/>
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{obraController.destroy}" value="#{bundle.ListObraDestroyLink}"/>
+                        <h:commandLink action="#{obraController.getContentView}" value="#{bundle.ListObraViewLink}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+            <br />
+            <h:commandLink action="#{obraController.prepareCreate}" value="#{bundle.ListObraCreateLink}"/>
+            <br />
+            <br />
+            <h:commandLink value="#{bundle.ListObraIndexLink}" action="/index" immediate="true" />
+        </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

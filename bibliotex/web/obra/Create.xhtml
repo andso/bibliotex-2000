@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateObraTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateObraLabel_idObra}" for="idObra" />
+                    <h:inputText id="idObra" value="#{obraController.selected.idObra}" title="#{bundle.CreateObraTitle_idObra}" required="true" requiredMessage="#{bundle.CreateObraRequiredMessage_idObra}"/>
+                    <h:outputLabel value="#{bundle.CreateObraLabel_dataPublicacao}" for="dataPublicacao" />
+                    <h:inputText id="dataPublicacao" value="#{obraController.selected.dataPublicacao}" title="#{bundle.CreateObraTitle_dataPublicacao}" required="true" requiredMessage="#{bundle.CreateObraRequiredMessage_dataPublicacao}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateObraLabel_isbn}" for="isbn" />
+                    <h:inputText id="isbn" value="#{obraController.selected.isbn}" title="#{bundle.CreateObraTitle_isbn}" />
+                    <h:outputLabel value="#{bundle.CreateObraLabel_autor}" for="autor" />
+                    <h:inputText id="autor" value="#{obraController.selected.autor}" title="#{bundle.CreateObraTitle_autor}" />
+                    <h:outputLabel value="#{bundle.CreateObraLabel_editora}" for="editora" />
+                    <h:inputText id="editora" value="#{obraController.selected.editora}" title="#{bundle.CreateObraTitle_editora}" />
+                    <h:outputLabel value="#{bundle.CreateObraLabel_tipoDeObra}" for="tipoDeObra" />
+                    <h:inputText id="tipoDeObra" value="#{obraController.selected.tipoDeObra}" title="#{bundle.CreateObraTitle_tipoDeObra}" />
+                    <h:outputLabel value="#{bundle.CreateObraLabel_areaRelacionada}" for="areaRelacionada" />
+                    <h:inputText id="areaRelacionada" value="#{obraController.selected.areaRelacionada}" title="#{bundle.CreateObraTitle_areaRelacionada}" />
+                    <h:outputLabel value="#{bundle.CreateObraLabel_conteudo}" for="conteudo" />
+                    <h:inputTextarea rows="4" cols="30" id="conteudo" value="#{obraController.selected.conteudo}" title="#{bundle.CreateObraTitle_conteudo}" />
+                    <h:outputLabel value="#{bundle.CreateObraLabel_capa}" for="capa" />
+                    <h:inputText id="capa" value="#{obraController.selected.capa}" title="#{bundle.CreateObraTitle_capa}" />
+                    <h:outputLabel value="#{bundle.CreateObraLabel_numeropaginas}" for="numeropaginas" />
+                    <h:inputText id="numeropaginas" value="#{obraController.selected.numeropaginas}" title="#{bundle.CreateObraTitle_numeropaginas}" />
+                    <h:outputLabel value="#{bundle.CreateObraLabel_titulo}" for="titulo" />
+                    <h:inputText id="titulo" value="#{obraController.selected.titulo}" title="#{bundle.CreateObraTitle_titulo}" />
+                    <h:outputLabel value="#{bundle.CreateObraLabel_descricao}" for="descricao" />
+                    <h:inputText id="descricao" value="#{obraController.selected.descricao}" title="#{bundle.CreateObraTitle_descricao}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{obraController.create}" value="#{bundle.CreateObraSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{obraController.prepareList}" value="#{bundle.CreateObraShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreateObraIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
