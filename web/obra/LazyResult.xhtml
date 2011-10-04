@@ -17,57 +17,32 @@
     </f:metadata>
             -->
         <ui:define name="body">     
-            
-            <h:dataTable value="#{ObraController.pesquisa}" var="results" border="0" cellpadding="2" cellspacing="0">
+                <h:form>
                     
-                <h:column >
-                        
-                     <f:facet name="header">   
-                        <h:outputText value="Codigo" />   
-                        <h:outputText value="#{results.quote}"/>
-                        <h:outputText value="Codigo" />  
-                     </f:facet>   
-                          
-                     
-                </h:column>
-                
-                    <h:column >
-                         <f:facet name="header"> 
-                        <h:outputText value="textname"/>
-                         </f:facet> 
-                    </h:column>
+                    <!-- TODO: colocar no bundle -->
+                    <h:outputText value="Número de Resultados para pesquisa: " />
+                    <h:outputText value="#{obraController.resultCount}" />
+                    
+                    
+                    
+                    <h:dataTable value="#{obraController.pesquisa }" var="res" border="0" cellpadding="2" cellspacing="0">
                     
                     <h:column >
-                        <h:outputText value="bza"></h:outputText>
+
+                         <f:facet name="header">   
+                          <!--    
+                            <h:outputText value="Conteudo"/>
+                           -->   
+                         </f:facet>   
+                        <h:outputText value="["/>
+                        <h:outputText value="#{res.quote}"/>
+                        <h:outputText value="]"/>    
                     </h:column>
                 
+                               
             </h:dataTable>
-            
-           <h:dataTable value="#{ObraController.result}" var="stringo" border="0" cellpadding="2" cellspacing="0">
-                    
-                <h:column >
-                        
-                     <f:facet name="header">   
-                        <h:outputText value="Codigo" />   
-                        <h:outputText value="#{stringo.results}"/>
-                        <h:outputText value="Codigo" />  
-                     </f:facet>   
-                          
-                     
-                </h:column>
-                
-                    <h:column >
-                         <f:facet name="header"> 
-                        <h:outputText value="textname"/>
-                         </f:facet> 
-                    </h:column>
-                    
-                    <h:column >
-                        <h:outputText value="bza"></h:outputText>
-                    </h:column>
-                
-            </h:dataTable>
-             
+            </h:form>
+                         
             </ui:define>
               
        
