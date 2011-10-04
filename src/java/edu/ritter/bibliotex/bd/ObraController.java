@@ -8,6 +8,7 @@ import edu.ritter.bibliotex.bd.util.PaginationHelper;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.faces.bean.ManagedBean;
@@ -38,8 +39,10 @@ public class ObraController implements Serializable {
     private String googleIt="";
     private List<String>  result;
    
-    private List<Pesquisa> pesquisa;
+    private List<Pesquisa> pesquisa=  new ArrayList<Pesquisa>();
     
+    
+    private int resultCount=0;
     
     public void setGoogleIt(String value){
        
@@ -52,7 +55,7 @@ public class ObraController implements Serializable {
     }
     
     
-    public List getPesquisa(){
+    public List<Pesquisa> getPesquisa(){
         return this.pesquisa;
     }
     
@@ -68,6 +71,17 @@ public class ObraController implements Serializable {
     public List getResult(){
         return this.result;
     }
+    
+    public int getResultCount(){
+        return this.resultCount;
+    }
+    
+    
+    public void setResultCount(int i ){
+         this.resultCount = i ;
+    }
+    
+    
     
     @PersistenceUnit
     EntityManagerFactory emf;
@@ -89,7 +103,9 @@ public class ObraController implements Serializable {
     
        String param="SELECT o.conteudo FROM Obra o WHERE o.titulo LIKE :googleIt OR o.conteudo LIKE :googleIt";
         
-        pesquisa = new ArrayList<Pesquisa>();
+       List<Pesquisa> pesquisaGoogle = //<editor-fold defaultstate="collapsed" desc="comment">
+               new ArrayList<Pesquisa>();
+       //</editor-fold>
         try {
             
             em = emf.createEntityManager();
@@ -103,18 +119,22 @@ public class ObraController implements Serializable {
          
         }  
         
-       // System.out.println("Resultado "+ result);
-        
+       
+        setResultCount(result.size());
         for (int i = 0; i < result.size(); i++){
             Conteudo conteudo = new Conteudo(result.get(i).toString());
             List resultadoPesquisa = conteudo.lazySearch(this.googleIt);
-            System.out.println("Resultads size "+ resultadoPesquisa.size());
-         // return result;
-            Pesquisa p = new Pesquisa();
-            p.setQuote("Ola");
-
-            pesquisa.add(p);
-            setResult(resultadoPesquisa);
+            
+            Iterator<String> iterator = resultadoPesquisa.iterator();
+            while (iterator.hasNext()) {
+	    
+                Pesquisa p = new Pesquisa();
+                p.setQuote(iterator.next());
+            
+                pesquisa.add(p);
+            }
+            
+          
         }
 
         return "LazyResult";
