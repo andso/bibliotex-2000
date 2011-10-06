@@ -37,7 +37,7 @@ public class ObraController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private String googleIt="";
-    private List<String>  result;
+    private List<Obra>  result;
    
     private List<Pesquisa> pesquisa=  new ArrayList<Pesquisa>();
     
@@ -101,36 +101,45 @@ public class ObraController implements Serializable {
         EntityManagerFactory emf=Persistence.createEntityManagerFactory("bibliotexPU");
             
     
-       String param="SELECT o.conteudo FROM Obra o WHERE o.titulo LIKE :googleIt OR o.conteudo LIKE :googleIt";
-        
+      // String param="SELECT o.conteudo FROM Obra o WHERE o.titulo LIKE :googleIt OR o.conteudo LIKE :googleIt";
+       //  String param="SELECT o.conteudo, o.dataPublicacao FROM Obra o WHERE o.titulo LIKE :googleIt OR o.conteudo LIKE :googleIt";
+        String param="SELECT o FROM Obra o WHERE o.titulo LIKE :googleIt OR o.conteudo LIKE :googleIt";
+      
        List<Pesquisa> pesquisaGoogle = //<editor-fold defaultstate="collapsed" desc="comment">
                new ArrayList<Pesquisa>();
        //</editor-fold>
         try {
             
             em = emf.createEntityManager();
-       
+            
             Query query = em.createQuery(param , Obra.class).setParameter("googleIt","%"+this.googleIt+"%");
             result = query.getResultList();  
         } catch (Exception e) {  
             
-            System.out.println(">>>  "+ this.googleIt);
+            System.out.println(">>>  "+ this.googleIt + " "+ result);
             e.printStackTrace();
          
         }  
-        
+        System.out.println(">>>  "+ result.get(0));
+
        
         setResultCount(result.size());
         for (int i = 0; i < result.size(); i++){
-            Conteudo conteudo = new Conteudo(result.get(i).toString());
+            System.out.println(result);
+            
+            
+            Obra  obra = (Obra)result.get(i); //.getConteudo();
+            Conteudo conteudo = new Conteudo(obra.getConteudo());
             List resultadoPesquisa = conteudo.lazySearch(this.googleIt);
             
             Iterator<String> iterator = resultadoPesquisa.iterator();
             while (iterator.hasNext()) {
 	    
                 Pesquisa p = new Pesquisa();
-                p.setQuote(iterator.next());
-            
+                p.setQuote(iterator.next().trim());
+                p.setDate(obra.getDataPublicacao());
+                p.setAutor(obra.getAutor());
+                p.setTitulo(obra.getTitulo());
                 pesquisa.add(p);
             }
             
