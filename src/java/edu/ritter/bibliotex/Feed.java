@@ -5,8 +5,10 @@
 package edu.ritter.bibliotex;
 
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
+import edu.ritter.bibliotex.bd.Obra;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -14,6 +16,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Text;
 
 /**
  *
@@ -22,14 +25,29 @@ import org.w3c.dom.Element;
 public class Feed {
     private Document document;
     private Element root;
-    public void addElements(String value, String year, String title){
+   
+    
+    public void addElements(String value, Obra obra, String quote){
         
         Element eventTag = document.createElement(value);
-        eventTag.setAttribute("title", title);
-        eventTag.setAttribute("start", year);
+        eventTag.setAttribute("title", obra.getTitulo());
+        
+        SimpleDateFormat format = new SimpleDateFormat("yyyy");  
+                  
+        String ano = format.format(obra.getDataPublicacao());  
+
+        eventTag.setAttribute("start", ano);
+        //eventTag.setTextContent(quote); //setNodeValue(quote);
+        
+        
+        Text text = document.createTextNode(quote);
+        eventTag.appendChild(text);
+
+        
+        
         root.appendChild(eventTag);
         
-        System.out.println(document);
+        //System.out.println(document);
     }
     
     
