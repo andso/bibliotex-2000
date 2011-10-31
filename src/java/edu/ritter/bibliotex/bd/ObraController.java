@@ -2,11 +2,13 @@ package edu.ritter.bibliotex.bd;
 
 import edu.ritter.bibliotex.Conteudo;
 //import edu.ritter.bibliotex.bd.Obra;
+import edu.ritter.bibliotex.Feed;
 import edu.ritter.bibliotex.bd.util.JsfUtil;
 import edu.ritter.bibliotex.bd.util.PaginationHelper;
 //import edu.ritter.bibliotex.bd.ObraJpaController;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -26,6 +28,7 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
+import javax.servlet.ServletContext;
 
 @ManagedBean(name = "obraController")
 @SessionScoped
@@ -120,10 +123,21 @@ public class ObraController implements Serializable {
             e.printStackTrace();
          
         }  
-        System.out.println(">>>  "+ result.get(0));
+       // System.out.println(">>>  "+ result.get(0));
 
        
         setResultCount(result.size());
+        
+        
+          
+        String value = "event";
+        
+        Feed instance = new Feed();
+        instance.createXML("data");
+      
+        
+        
+        
         for (int i = 0; i < result.size(); i++){
             System.out.println(result);
             
@@ -134,22 +148,47 @@ public class ObraController implements Serializable {
             
             Iterator<String> iterator = resultadoPesquisa.iterator();
             while (iterator.hasNext()) {
-	    
+                String quote = iterator.next().trim();
                 Pesquisa p = new Pesquisa();
-                p.setQuote(iterator.next().trim());
+                p.setQuote(quote);
                 p.setDate(obra.getDataPublicacao());
                 p.setAutor(obra.getAutor());
                 p.setTitulo(obra.getTitulo());
+                
+               
+                
+                instance.addElements(value, obra, quote);
                 pesquisa.add(p);
             }
             
           
         }
-
+        
+        
+        ServletContext context = (ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext();
+        String directory = ((ServletContext)context).getRealPath("/obra");
+        
+        System.err.println("Diretorio " + directory);
+        instance.saveXml(directory+"/pesquisa.xml");
         return "LazyResult";
         
         
     }
+      
+      
+    public String timeLine(){
+        
+        String value = "event";
+        
+        Feed instance = new Feed();
+        instance.createXML("data");
+       
+        
+//        instance.addElements(value, "2008", "titledd ddd1");
+//        instance.addElements(value, "2011", "title   dsfs  dd2");
+//        instance.saveXml("pesquisa.xml");
+        return "Timeline";
+    }  
     
     
     
