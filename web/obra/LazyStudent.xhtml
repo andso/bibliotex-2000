@@ -5,6 +5,81 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
 
+    
+<link href="css/site.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery-1.6.4.min.js" type="text/javascript"></script>
+<script src="js/jquery.ba-hashchange.min.js" type="text/javascript"></script>
+<script src="js/search.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function() {
+
+		var search = new Search();
+
+		// Cria o evento quando o hash é alterado.
+		$(window).hashchange(
+						function() {
+
+							// Recupera os parametros de pesquisa				
+							var argumentHash = location.hash.substring(1,
+									location.hash.length).split("/");
+
+							//Se contém hash
+							if (argumentHash.length > 3) {
+
+								// Seta o conteúdo de pesquisa
+								search
+										.setContentSearch(decodeURIComponent(argumentHash[2]
+												.split('+').join('%')));
+
+								// Seta o tipo da visão
+								search.setViewType(argumentHash[3]);
+
+								// Adiciona o conteudo de pesquisa no campo de texto
+								$("#searchText").val(search.getContentSearch());
+
+								search.showSearch();
+
+							} else {
+								// Limpar o campo de texto da busca
+								$("#searchText").val("");
+							}
+						});
+
+		// Cria o evento de click no botão buscar
+		$("#btnSearch").click(function() {
+			loadValuesSearch();
+		});
+
+		// Cria o evento quando o tipo da visão é alterada
+		$("input[name='typeView']").change(function() {
+			loadValuesSearch();
+		});
+
+		function loadValuesSearch() {
+			// Recupera o conteudo de busca
+			search.setContentSearch($("#searchText").val());
+
+			// Recupera o tipo da visão
+			search.setViewType($("input[name='typeView']:checked").val());
+
+			// Altera HASH
+			alterHash();
+		}
+
+		function alterHash() {
+			if (search.getContentSearch() != "")
+				// Alterar ca HASH para ter o conteúdo da busca e o tipo da visão
+				location.hash = "/search/"
+						+ search.getEncodeContentSearch().split('%').join('+')
+						+ "/" + search.getViewType();
+			else
+				location.hash = "";
+		}
+
+		loadValuesSearch();
+	});
+</script>
+    
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
             <h:outputText value="#{bundle.SearchLazy}"></h:outputText>
@@ -13,11 +88,14 @@
         <h:form styleClass="jsfcrud_list_form">
            
              <h:panelGrid>
-                    <!-- <h:outputLabel value="#{bundle.EditObraLabel_idObra}" for="lazyParams" /> --> 
-                    <h:inputText id="searchLazy" value="#{obraController.googleIt}" title="#{bundle.SearchLazy}" required="true" requiredMessage="#{bundle.EditObraRequiredMessage_idObra}"/>
+               <!--     
+                 <h:inputText id="searchLazy" value="#{search.googleIt}" title="#{bundle.SearchLazy}" required="true" requiredMessage="#{bundle.EditObraRequiredMessage_idObra}"/>
+                   -->
+                 
+       <h:inputText id="searchLazy" value="#{obraSearch.googleIt}" title="#{bundle.SearchLazy}" required="true" requiredMessage="#{bundle.EditObraRequiredMessage_idObra}"/>
                     
              </h:panelGrid>
-             <h:commandLink action="#{obraController.searchLazy}" value="#{bundle.LazySearch_feeling}"/> 
+             <h:commandLink action="#{obraSearch.searchLazy}" value="#{bundle.LazySearch_feeling}"/> 
                       
         </h:form>
         </ui:define>

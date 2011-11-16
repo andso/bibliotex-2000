@@ -13,7 +13,7 @@
         </ui:define>
             <!--
              <f:metadata>
-        <f:viewParam name="result" value="#{ObraController.result}" />
+        <f:viewParam name="result" value="#{obraSearch.result}" />
     </f:metadata>
             -->
         <ui:define name="body">     
@@ -21,11 +21,11 @@
                     
                     <!-- TODO: colocar no bundle -->
                     <h:outputText value="Número de Resultados para pesquisa: " />
-                    <h:outputText value="#{obraController.resultCount}" />
+                    <h:outputText value="#{obraSearch.resultCount}" />
                     
                     
                     
-                    <h:dataTable value="#{obraController.pesquisa }" var="res" border="0" cellpadding="2" cellspacing="0">
+                    <h:dataTable value="#{obraSearch.pesquisa }" var="res" border="0" cellpadding="2" cellspacing="0">
                    
                     <h:column >
                         <f:facet name="header">   
@@ -71,7 +71,7 @@
             
             <h:form>
             <!-- 
-            <h:dataTable value="#{obraController.pesquisa }" var="local" border="0" cellpadding="2" cellspacing="0">
+            <h:dataTable value="#{obraSearch.pesquisa }" var="local" border="0" cellpadding="2" cellspacing="0">
                    
                     <h:column >
                         
