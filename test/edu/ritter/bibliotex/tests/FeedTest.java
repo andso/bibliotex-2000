@@ -4,6 +4,8 @@
  */
 package edu.ritter.bibliotex.tests;
 
+import java.util.Calendar;
+import java.io.File;
 import edu.ritter.bibliotex.Feed;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -37,32 +39,23 @@ public class FeedTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of addElements method, of class Feed.
-     */
-    @Test
-    public void testAddElements() {
-        System.out.println("addElements");
-        String value = "event";
-        Feed instance = new Feed();
-        instance.createXML("data");
-       
-        
-       instance.addElements(value, "2008", "titledd ddd1");
-       instance.addElements(value, "2011", "title   dsfs  dd2");
-        instance.saveXml("pesquisa.xml");
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
-    }
+    
 
     /**
      * Test of createXML method, of class Feed.
      */
     @Test
     public void testCreateXML() {
-        System.out.println("createXML");
-       // Feed instance = new Feed();
-        //instance.createXML();
+        Calendar calendar = Calendar.getInstance();
+        java.util.Date now = calendar.getTime();
+        long timestamp = System.currentTimeMillis() / 1000L;
+        String fileName = "pesquisa"+ timestamp+".xml";
         
+        Feed instance = new Feed();
+        instance.createXML( "data");
+        instance.saveXml(fileName);
+        assertTrue((new File(fileName)).exists());
+
+       
     }
 }
