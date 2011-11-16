@@ -6,14 +6,14 @@ package edu.ritter.bibliotex;
 
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import edu.ritter.bibliotex.bd.Obra;
-import java.io.File;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
@@ -25,7 +25,7 @@ import org.w3c.dom.Text;
 public class Feed {
     private Document document;
     private Element root;
-   
+    private String fileName="";
     
     public void addElements(String value, Obra obra, String quote){
         
@@ -37,7 +37,6 @@ public class Feed {
         String ano = format.format(obra.getDataPublicacao());  
 
         eventTag.setAttribute("start", ano);
-        //eventTag.setTextContent(quote); //setNodeValue(quote);
         
         
         Text text = document.createTextNode(quote);
@@ -47,7 +46,7 @@ public class Feed {
         
         root.appendChild(eventTag);
         
-        //System.out.println(document);
+       
     }
     
     
@@ -63,8 +62,9 @@ public class Feed {
         }
 
     }
-    public void createXML(String value){
+    public void createXML( String value){
         try {
+            
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             // then we have to create document-loader:
             DocumentBuilder loader = factory.newDocumentBuilder();
@@ -74,14 +74,7 @@ public class Feed {
     
             root = document.createElement(value);
             document.appendChild(root);
-           // Element dataTag = document.createElement("data");
-            
-            
-           // document.appendChild(dataTag);
-            //document.getFirstChild().appendChild(dataTag);
-            //document.appendChild(dataTag);
-            //document.appendChild(dataTag);
-            //document.getElementById("data").appendChild(document.createElement("value"));
+           
         } catch (Exception ex) {
             ex.printStackTrace();
             Logger.getLogger(Feed.class.getName()).log(Level.SEVERE, null, ex);

@@ -18,8 +18,8 @@ public class Conteudo {
     
     public Conteudo(String textLook){
         
-        System.out.println("texto para tokenizar [[[["+ textLook+ "]]]]]]");
-		this.textLook = textLook;
+        //System.out.println("texto para tokenizar [[[["+ textLook+ "]]]]]]");
+	this.textLook = textLook;
     }
     
     public List lazySearch(String lookUp){

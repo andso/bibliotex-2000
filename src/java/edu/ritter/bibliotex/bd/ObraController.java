@@ -10,6 +10,7 @@ import edu.ritter.bibliotex.bd.util.PaginationHelper;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -43,7 +44,7 @@ public class ObraController implements Serializable {
     private List<Obra>  result;
    
     private List<Pesquisa> pesquisa=  new ArrayList<Pesquisa>();
-    
+    private Date maxDate;
     
     private int resultCount=0;
     
@@ -57,6 +58,13 @@ public class ObraController implements Serializable {
         return this.googleIt;
     }
     
+    public void setMaxDate(Date date){
+        this.maxDate = date;
+    }
+    
+    public Date getMaxDate(){
+        return this.maxDate;
+    }
     
     public List<Pesquisa> getPesquisa(){
         return this.pesquisa;
@@ -154,7 +162,7 @@ public class ObraController implements Serializable {
                 p.setDate(obra.getDataPublicacao());
                 p.setAutor(obra.getAutor());
                 p.setTitulo(obra.getTitulo());
-                
+                setMaxDate(obra.getDataPublicacao());
                
                 
                 instance.addElements(value, obra, quote);
@@ -163,6 +171,7 @@ public class ObraController implements Serializable {
             
           
         }
+        
         
         
         ServletContext context = (ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext();
