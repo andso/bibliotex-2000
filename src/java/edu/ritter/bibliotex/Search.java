@@ -43,13 +43,20 @@ public class Search {
     
     private int resultCount=0;
     private String feedName="pesquisa.xml";
+    private boolean cached = false;
+    private int quotesResult;
     
     
-    
+    public int getQuotesResult(){
+        return quotesResult;
+    }
     
     public void setGoogleIt(String value){
-       
-        this.googleIt= value;
+        if (!value.equals(this.googleIt)){
+            System.out.println("Invalidando cache... OLD: "+ this.googleIt + " NEW: "+ value );
+            this.googleIt= value;
+            this.cached=false;
+        }
     }
     
     
@@ -103,6 +110,25 @@ public class Search {
     EntityManager em ;
     
     
+    
+    public void query(){
+        
+        EntityManagerFactory emf=Persistence.createEntityManagerFactory("bibliotexPU");
+      
+        String param="SELECT o FROM Obra o WHERE o.titulo LIKE :googleIt OR o.conteudo LIKE :googleIt";
+      
+        try {
+            em = emf.createEntityManager();  
+            Query query = em.createQuery(param , Obra.class).setParameter("googleIt","%"+this.googleIt+"%");
+            result = query.getResultList();  
+        } catch (Exception e) {  
+            e.printStackTrace();
+        }  
+        setResultCount(result.size());
+     
+        this.cached = true;
+    }
+    
     /**
      * 
      * @param param
@@ -110,9 +136,9 @@ public class Search {
      * @return 
      */
       public String searchLazy(){
+        
+        /*  
         EntityManagerFactory emf=Persistence.createEntityManagerFactory("bibliotexPU");
-            
-    
         String param="SELECT o FROM Obra o WHERE o.titulo LIKE :googleIt OR o.conteudo LIKE :googleIt";
       
       
@@ -126,13 +152,17 @@ public class Search {
       
        
         setResultCount(result.size());
-        
+        */
+          
+       if (!this.cached){
+           query();
+       }   
        //TODO: refactor this 
         for (int i = 0; i < result.size(); i++){
             Obra  obra = (Obra)result.get(i); 
             Conteudo conteudo = new Conteudo(obra.getConteudo());
             List resultadoPesquisa = conteudo.lazySearch(this.googleIt);
-            
+            this.quotesResult =  resultadoPesquisa.size();
             Iterator<String> iterator = resultadoPesquisa.iterator();
             while (iterator.hasNext()) {
                 String quote = iterator.next().trim();
@@ -165,7 +195,9 @@ public class Search {
         Feed bookFeed = new Feed();
         bookFeed.createXML("data");
       
-        
+        if (!this.cached){
+           query();
+        } 
         //TODO: refactor this
         for (int i = 0; i < result.size(); i++){
            
