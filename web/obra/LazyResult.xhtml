@@ -20,9 +20,11 @@
                 <h:form>
                     
                     <!-- TODO: colocar no bundle -->
-                    <h:outputText value="Número de Resultados para pesquisa: " />
+                    <h:outputText value="Livros encontrados na pesquisa: " />
                     <h:outputText value="#{obraSearch.resultCount}" />
-                    
+                    <p/>
+                    <h:outputText value="Quote(s) encontrado(s) na pesquisa: " />
+                    <h:outputText value="#{obraSearch.quotesResult}" />
                     
                     
                     <h:dataTable value="#{obraSearch.pesquisa }" var="res" border="0" cellpadding="2" cellspacing="0">
