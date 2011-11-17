@@ -127,7 +127,7 @@ public class ObraController implements Serializable {
             result = query.getResultList();  
         } catch (Exception e) {  
             
-            System.out.println(">>>  "+ this.googleIt + " "+ result);
+            System.out.println(">>>  ObraController"+ this.googleIt + " "+ result);
             e.printStackTrace();
          
         }  

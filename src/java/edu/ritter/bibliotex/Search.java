@@ -42,6 +42,10 @@ public class Search {
     private Date maxDate;
     
     private int resultCount=0;
+    private String feedName="pesquisa.xml";
+    
+    
+    
     
     public void setGoogleIt(String value){
        
@@ -87,7 +91,9 @@ public class Search {
          this.resultCount = i ;
     }
     
-    
+    public String getFeedPath(){
+        return feedName;
+    }
     
     @PersistenceUnit
     EntityManagerFactory emf;
@@ -107,45 +113,23 @@ public class Search {
         EntityManagerFactory emf=Persistence.createEntityManagerFactory("bibliotexPU");
             
     
-      // String param="SELECT o.conteudo FROM Obra o WHERE o.titulo LIKE :googleIt OR o.conteudo LIKE :googleIt";
-       //  String param="SELECT o.conteudo, o.dataPublicacao FROM Obra o WHERE o.titulo LIKE :googleIt OR o.conteudo LIKE :googleIt";
         String param="SELECT o FROM Obra o WHERE o.titulo LIKE :googleIt OR o.conteudo LIKE :googleIt";
       
-       List<Pesquisa> pesquisaGoogle = //<editor-fold defaultstate="collapsed" desc="comment">
-               new ArrayList<Pesquisa>();
-       //</editor-fold>
+      
         try {
-            
-            em = emf.createEntityManager();
-            
+            em = emf.createEntityManager();  
             Query query = em.createQuery(param , Obra.class).setParameter("googleIt","%"+this.googleIt+"%");
             result = query.getResultList();  
         } catch (Exception e) {  
-            
-            System.out.println(">>>  "+ this.googleIt + " "+ result);
-            e.printStackTrace();
-         
+           e.printStackTrace();
         }  
-       // System.out.println(">>>  "+ result.get(0));
-
+      
        
         setResultCount(result.size());
         
-        
-          
-        String value = "event";
-        
-        Feed instance = new Feed();
-        instance.createXML("data");
-      
-        
-        
-        
+       //TODO: refactor this 
         for (int i = 0; i < result.size(); i++){
-            System.out.println(result);
-            
-            
-            Obra  obra = (Obra)result.get(i); //.getConteudo();
+            Obra  obra = (Obra)result.get(i); 
             Conteudo conteudo = new Conteudo(obra.getConteudo());
             List resultadoPesquisa = conteudo.lazySearch(this.googleIt);
             
@@ -160,33 +144,52 @@ public class Search {
                 setMaxDate(obra.getDataPublicacao());
                
                 
-                instance.addElements(value, obra, quote);
                 pesquisa.add(p);
             }
-            
-          
         }
         
-        
-        
-        ServletContext context = (ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext();
-        String directory = ((ServletContext)context).getRealPath("/obra");
-        
-        System.err.println("Diretorio " + directory);
-        instance.saveXml(directory+"/pesquisa.xml");
         return "LazyResult";
         
         
     }
       
-      
+    /**
+       * 
+       * 
+       * @return timeline 
+       */  
     public String timeLine(){
-        
-        String value = "event";
-        
-        Feed instance = new Feed();
-        instance.createXML("data");
        
+        String eventTag = "event";
+        
+        Feed bookFeed = new Feed();
+        bookFeed.createXML("data");
+      
+        
+        //TODO: refactor this
+        for (int i = 0; i < result.size(); i++){
+           
+            Obra  obra = (Obra)result.get(i); 
+            Conteudo conteudo = new Conteudo(obra.getConteudo());
+            List resultadoPesquisa = conteudo.lazySearch(this.googleIt);
+
+            Iterator<String> iterator = resultadoPesquisa.iterator();
+            while (iterator.hasNext()) {
+                String quote = iterator.next().trim();
+                setMaxDate(obra.getDataPublicacao());
+                bookFeed.addElements(eventTag, obra, quote);
+            }
+
+        } 
+
+        
+        ServletContext context = (ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext();
+        String directory = ((ServletContext)context).getRealPath("/obra");
+        
+        long timestamp = System.currentTimeMillis() / 1000L;
+        this.feedName = "pesquisa_"+ timestamp+".xml";
+        System.out.println("Saving "+ this.feedName);
+        bookFeed.saveXml(directory+"/" + this.feedName);
        
         return "Timeline";
     }  
