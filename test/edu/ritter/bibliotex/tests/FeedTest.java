@@ -46,8 +46,7 @@ public class FeedTest {
      */
     @Test
     public void testCreateXML() {
-        Calendar calendar = Calendar.getInstance();
-        java.util.Date now = calendar.getTime();
+       
         long timestamp = System.currentTimeMillis() / 1000L;
         String fileName = "pesquisa"+ timestamp+".xml";
         
