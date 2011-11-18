@@ -64,4 +64,16 @@ public class PDFConverterTest {
         
     }
     
+    /**
+     * Test of pdftoText method, of class PDFConverter.
+     */
+    @Test
+    public void testPdftoTextEmpty() {
+        String pdfName = System.getProperty("user.dir")+"/testfiles/test_non_ecziste.pdf";
+        PDFConverter instance = new PDFConverter();
+        String expResult = "simple";
+        String result = instance.pdftoText(pdfName);
+        assertNull(result);
+        //aseertTrue(instance.pdftoText(pdfName));
+    }
 }
