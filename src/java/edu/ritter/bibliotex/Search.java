@@ -212,9 +212,15 @@ public class Search {
             List resultadoPesquisa = conteudo.lazySearch(this.googleIt);
 
             Iterator<String> iterator = resultadoPesquisa.iterator();
+            int count=0;
             while (iterator.hasNext()) {
                 String quote = iterator.next().trim();
                 setMaxDate(obra.getDataPublicacao());
+                
+                count++;
+                if (count > 4){
+                    continue;
+                }
                 
                 bookFeed.addElements(eventTag, obra, quote);
             }
