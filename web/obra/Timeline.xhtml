@@ -12,13 +12,13 @@
         <script src="http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=true" type="text/javascript"></script>
         <script>
         var tl;
-        function onLoad(endDate, feedPath) {
+        function onLoad(startDate, endDate, feedPath) {
         var eventSource = new Timeline.DefaultEventSource();
         var bandInfos = [
         Timeline.createBandInfo({
              eventSource:    eventSource,
-            date:           "Jun 28 1854",
-            width:          "80%", 
+            
+            width:          "90%", 
             intervalUnit:   Timeline.DateTime.YEAR, 
             intervalPixels: 100
         }),
@@ -27,12 +27,13 @@
        Timeline.createBandInfo({
             overview:       true,
             eventSource:    eventSource,
-             date:           endDate,
-            width:          "20%", 
+           
+            width:          "10%", 
             intervalUnit:   Timeline.DateTime.MONTH, 
             intervalPixels: 200
         })
         ];
+        alert(startDate);
         alert(endDate);
         bandInfos[1].syncWith = 0;
         bandInfos[1].highlight = true;
@@ -53,7 +54,7 @@
     </head>
 
     
-    <body onload="onLoad('#{obraSearch.maxDate}', '#{obraSearch.feedPath}' );" onresize="onResize();">
+    <body onload="onLoad('#{obraSearch.minDate}','#{obraSearch.maxDate}', '#{obraSearch.feedPath}' );" onresize="onResize();">
         <div id="my-timeline" style="height: 300px; border: 1px solid #aaa"></div>
         <noscript>
         This page uses Javascript to show you a Timeline. Please enable Javascript in your browser to see the full page. Thank you.
