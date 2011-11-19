@@ -39,12 +39,16 @@ public class Search {
     private List<Obra>  result;
    
     private List<Pesquisa> pesquisa=  new ArrayList<Pesquisa>();
-    private Date maxDate;
+    private Date maxDate = new Date(01, 01, 01);
+    
+    //Set max to today
+    private Date minDate = new Date();
     
     private int resultCount=0;
     private String feedName="pesquisa.xml";
     private boolean cached = false;
     private int quotesResult;
+    
     
     
     public int getQuotesResult(){
@@ -63,9 +67,23 @@ public class Search {
     public String getGoogleIt(){
         return this.googleIt;
     }
+    /**
+     * Utilizado para parametrizar o tamanho da Timeline
+     */
+    public void setMinDate(Date date){
+        if (date.before(this.minDate)){
+            this.minDate = date;
+        }
+    }
+    
+    public Date getMinDate(){
+        return this.minDate;
+    }
     
     public void setMaxDate(Date date){
-        this.maxDate = date;
+        if (date.after( this.maxDate )){
+            this.maxDate = date;
+        }
     }
     
     public Date getMaxDate(){
@@ -137,26 +155,13 @@ public class Search {
      */
       public String searchLazy(){
         
-        /*  
-        EntityManagerFactory emf=Persistence.createEntityManagerFactory("bibliotexPU");
-        String param="SELECT o FROM Obra o WHERE o.titulo LIKE :googleIt OR o.conteudo LIKE :googleIt";
-      
-      
-        try {
-            em = emf.createEntityManager();  
-            Query query = em.createQuery(param , Obra.class).setParameter("googleIt","%"+this.googleIt+"%");
-            result = query.getResultList();  
-        } catch (Exception e) {  
-           e.printStackTrace();
-        }  
-      
-       
-        setResultCount(result.size());
-        */
+        
           
        if (!this.cached){
            query();
+           
        }   
+       pesquisa.clear();
        //TODO: refactor this 
         for (int i = 0; i < result.size(); i++){
             Obra  obra = (Obra)result.get(i); 
@@ -172,7 +177,8 @@ public class Search {
                 p.setAutor(obra.getAutor());
                 p.setTitulo(obra.getTitulo());
                 setMaxDate(obra.getDataPublicacao());
-               
+                setMinDate(obra.getDataPublicacao());
+
                 
                 pesquisa.add(p);
             }
@@ -209,6 +215,7 @@ public class Search {
             while (iterator.hasNext()) {
                 String quote = iterator.next().trim();
                 setMaxDate(obra.getDataPublicacao());
+                
                 bookFeed.addElements(eventTag, obra, quote);
             }
 
@@ -217,7 +224,8 @@ public class Search {
         
         ServletContext context = (ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext();
         String directory = ((ServletContext)context).getRealPath("/obra");
-        
+        //O mais facil eh retornar a variavel, como eh um trabalho de java... vamos salvar o xml
+        //e ja economizamos memoria
         long timestamp = System.currentTimeMillis() / 1000L;
         this.feedName = "pesquisa_"+ timestamp+".xml";
         System.out.println("Saving "+ this.feedName);
