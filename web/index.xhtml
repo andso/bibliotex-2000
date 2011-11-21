@@ -1,24 +1,72 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <title>Bibliotex 2000</title>
-<h:outputStylesheet name="css/jsfcrud.css"/>
-    </h:head>
-    <h:body>
-        Bibliotex 2000
-                <h:form>
-                    
-                    <h:commandLink action="/obra/Create" value="Cadastrar nova obra"/>
-                    <br/>
-                    <h:commandLink action="/obra/List" value="Pesquisar por obras"/>
-                    <br/>
-                    <h:commandLink action="/obra/LazyStudent" value="Lazy Student"/>
-                    <br/>
-                    <h:commandLink action="/obra/Timeline" value="Timeline"/>
-                </h:form>
-</h:body>
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            Bibliotex Lazy Student or TimeLine
+        </ui:define>
+
+        <ui:define name="header">
+            <div id="contentHeader">
+                <div id="search">
+                    <h:form>
+                        <h:inputText id="searchLazy" value="#{obraSearch.googleIt}" title="#{bundle.SearchLazy}"/>
+                        <h:commandLink action="#{obraSearch.searchLazy}" />
+                    </h:form>
+                </div>
+            </div>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form>
+                <h:dataTable value="#{obraSearch.pesquisa }" var="res" border="0" cellpadding="2" cellspacing="0">
+                    <h:column >
+                        <f:facet name="header">   
+                            <h:outputText value="Livros encontrados na pesquisa: " />
+                            <h:outputText value="#{obraSearch.resultCount}" />
+                            <p/>
+                            <h:outputText value="Quote(s) encontrado(s) na pesquisa: " />
+                            <h:outputText value="#{obraSearch.quotesResult}" /> 
+                        </f:facet>  
+                        <!-- citacao -->
+                        <h:outputText value="&quot;"/>
+                        <h:outputText value="#{res.quote}" />
+                        <h:outputText value="&quot; "/>
+
+
+                        <h:outputText value="("/>    
+                        <h:outputText value="#{res.autor}, "   />
+
+                        <h:outputText value="#{res.date}">
+                            <f:convertDateTime pattern="yyyy"/>
+                        </h:outputText>  
+                        <h:outputText value=")"/>
+
+                        <!-- referencia -->
+                        <!-- Pressman, Roger S.(2001) Software Engineering A Practitioner’s Approach -->
+                        <br/>
+                        <br/>
+                        <h:outputText value="Referência: "   />
+                        <br/>    
+                        <h:outputText value="#{res.autor}, "   />
+
+                        <h:outputText value="("/> 
+                        <h:outputText value="#{res.date}">
+                            <f:convertDateTime pattern="yyyy"/>
+                        </h:outputText>
+                        <h:outputText value=")"/>
+                        <h:outputText value=" #{res.titulo} "   />
+
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
 
 </html>
 

@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body, html {
+    background: url("../images/bk_body.jpg") repeat scroll 0 0 transparent;
+    color: #333333;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 135%;
+}
+
+#mainWrapper {
+    background: url("../images/bk_main_wrapper.png") repeat-x scroll 0 0 transparent;
+}
+
+#wrapperHeader, #wrapperBoby {
+    margin: 0 auto;
+    width: 960px;
+}
+
+#header {
+    background: url("../images/bk_header.png") no-repeat scroll 0 0 transparent;
+    height: 100px;
+    position: relative;
+}
+#header h1 {
+    margin-top: 30px;
+    position: absolute;
+    color: #eff5fa;
+}
+#mainMenu {
+    left: 300px;
+    position: absolute;
+    top: 0;
+}
+
+#mainMenu.ddsmoothmenu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    z-index: 100;
+}
+
+#mainMenu.ddsmoothmenu ul li {
+    display: inline;
+    float: left;
+    position: relative;
+}
+
+#mainMenu ul li a {
+    color: #CCCCCC;
+    display: block;
+    font-size: 17px;
+    height: 49px;
+    padding: 36px 18px 0;
+}
+
+#mainMenu ul li a:hover {
+    background: url("../images/bk_mainmenu.png") repeat-x scroll 0 0 transparent;
+    color: #96DDFC;
+    text-decoration: none;
+}
+
+#contentHeader {
+    position: absolute;
+    margin-top: 15px;
+    margin-left: 4px;
+    width: 950px;
+    height: 50px;
+    text-align: center;
+}
+#search input[type="text"]{
+    border: 4px 4px 4px 4px;
+    color: #A8A8A8;
+    font-style: italic;
+    font-size: 20px;
+    margin-right: 10px;
+    padding: 9px 10px 10px;
+    position: relative;
+    width: 500px;
+    height: 30px
+}
+#search a{
+    background: url("../images/but_search.png") no-repeat scroll 0 0 transparent;
+    border: medium none;
+    cursor: pointer;
+    height: 44px;
+    position: absolute;
+    right: 0;
+    width: 43px;
+    z-index: 100;
+    margin-right: 180px;
+}
+#search table{
+    margin-left: 350px;
+}
+#search table td{
+    padding-top: 15px;
+    padding-left: 20px;
+    font-style: italic;
+    font-size: 18px;
+    
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+.editor-label label {
+    font-size: 1.2em
+}
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+.editor-field input[type="text"]{
+    border: 1px solid #ccc;
+    padding: 3px;
+    font-size: 1.4em;
+    color: #444;
+    width: 400px;
+}
+.grupo {
+    float: left;
+    margin: 5px 10px 0 0;
+}
+
+.editor {
+    width: 850px;
+    margin: 0 auto;
+}
+
+#editor-actions {
+    width: 850px;
+    margin: 10px 0 50px 0;
+    text-align: right;
+}
+
+#editor-actions a {
+    width: 150px;
+}
+
+.formTable table {
+    margin: 0 auto;
+}
+.formTable table td {
+    padding-top: 15px;
+    padding-left: 2px;
+    font-size: 18px;
+    text-align: right;
+}
+.formTable table td input{
+    text-align: left;
+    font-size: 18px;
+    padding: 4px;
+    width: 500px;
+}

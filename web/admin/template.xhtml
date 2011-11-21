@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="header">
+            <div id="mainMenu" class="ddsmoothmenu">
+                <ul id="menu-topmenu" class="menu">
+                    <li><a href="#{request.contextPath}/admin" title="Admin" class="current">Admin</a></li>
+                    <li><a href="#{request.contextPath}/admin/obra/adicionar" title="Criar Obra">Adicionar obra</a></li>
+                </ul>    
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

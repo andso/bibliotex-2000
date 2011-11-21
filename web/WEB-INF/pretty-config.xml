@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pretty-config xmlns="http://ocpsoft.com/prettyfaces/3.3.2" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.3.2
+                                   		http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.3.2.xsd">
+   
+    <rewrite match="(?i)^(.*);jsessionid=\w+(.*)" substitute="$1$2" redirect="chain" />
+    
+    <url-mapping id="home"> 
+        <pattern value="/" /> 
+        <view-id value="/faces/index.xhtml" />
+    </url-mapping> 
+      
+    <url-mapping id="upload"> 
+        <pattern value="/upload" /> 
+        <view-id value="/faces/admin/obra/uploadImage.xhtml" />
+    </url-mapping>   
+      
+    <url-mapping id="admin"> 
+        <pattern value="/admin/" /> 
+        <view-id value="/faces/admin/index.xhtml" />
+    </url-mapping> 
+
+    <url-mapping id="admin.obra.adicionar"> 
+        <pattern value="/admin/obra/adicionar" /> 
+        <view-id value="/faces/admin/obra/adicionar.xhtml" />
+    </url-mapping> 
+
+</pretty-config>
