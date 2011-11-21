@@ -5,11 +5,7 @@
 package edu.ritter.bibliotex;
 
 
- /*
-  * PDFTextParser.java
-  * Author: S.Prasanna
-  *
-  */
+ 
  import org.pdfbox.cos.COSDocument;
  import org.pdfbox.pdfparser.PDFParser;
  import org.pdfbox.pdmodel.PDDocument;
@@ -23,13 +19,13 @@ package edu.ritter.bibliotex;
  public class PDFConverter {
 
      PDFParser parser;
-     String parsedText;
+     String parsedText =null;
      PDFTextStripper pdfStripper;
      PDDocument pdDoc;
      COSDocument cosDoc;
      PDDocumentInformation pdDocInfo;
 
-     // PDFTextParser Constructor 
+      
      public PDFConverter() {
      }
 
@@ -48,7 +44,7 @@ package edu.ritter.bibliotex;
              parser = new PDFParser(new FileInputStream(pdfFile));
          } catch (Exception e) {
              System.out.println("Unable to open PDF Parser.");
-             return null;
+             e.printStackTrace();
          }
    
          try {
@@ -71,7 +67,7 @@ package edu.ritter.bibliotex;
          System.out.println("Done.");
          return parsedText;
      }
-
+     /*
      // Write the parsed text from PDF to a file
      void writeTexttoFile(String pdfText, String fileName) {
    
@@ -87,23 +83,22 @@ package edu.ritter.bibliotex;
          System.out.println("Done.");
      }
 
+      * 
+      */
      //Extracts text from a PDF Document and writes it to a text file
      public static void main(String args[]) {
    
-         if (args.length != 2) {
-             System.out.println("Usage: java PDFTextParser  ");
-             System.exit(1);
-         }
-  
          PDFConverter pdfTextParserObj = new PDFConverter();
-         String pdfToText = pdfTextParserObj.pdftoText(args[0]);
+         String pdfToText = pdfTextParserObj.pdftoText("/Users/anderson/Documents/Dropbox/Livros/CASE STUDY - Patterns for Distributed Scrum.pdf");
    
          if (pdfToText == null) {
              System.out.println("PDF to Text Conversion failed.");
          }
          else {
              System.out.println("\nThe text parsed from the PDF Document....\n" + pdfToText);
-             pdfTextParserObj.writeTexttoFile(pdfToText, args[1]);
+             //pdfTextParserObj.writeTexttoFile(pdfToText, args[1]);
          }
      }
+      
+      
  }
