@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -108,7 +109,7 @@ public class ObraController implements Serializable {
      * @param resultClass
      * @return 
      */
-      public String searchLazy(){
+    public String searchLazy(){
         EntityManagerFactory emf=Persistence.createEntityManagerFactory("bibliotexPU");
             
     
@@ -182,8 +183,7 @@ public class ObraController implements Serializable {
         return "LazyResult";
         
         
-    }
-      
+    }     
       
     public String timeLine(){
         
@@ -199,14 +199,9 @@ public class ObraController implements Serializable {
         return "Timeline";
     }  
     
-    
-    
     public ObraController() {
     }
-
-    
-            
-            
+         
     public Obra getSelected() {
         if (current == null) {
             current = new Obra();
